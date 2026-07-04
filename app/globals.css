@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 210 20% 98%;
+  --foreground: 222 28% 12%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 28% 12%;
+  --muted: 210 18% 94%;
+  --muted-foreground: 216 12% 43%;
+  --primary: 188 78% 28%;
+  --primary-foreground: 0 0% 100%;
+  --destructive: 0 72% 45%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 214 18% 84%;
+  --input: 214 18% 84%;
+  --ring: 188 78% 28%;
+}
+
+* {
+  @apply border-border;
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+}
+
+a {
+  @apply text-primary underline-offset-4 hover:underline;
+}
