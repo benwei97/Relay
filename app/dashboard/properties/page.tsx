@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { Copy, MoreVertical, Save, Trash2 } from "lucide-react";
-import { addProperty, deleteProperty, updateProperty } from "@/app/actions";
+import { Copy } from "lucide-react";
+import { addProperty } from "@/app/actions";
+import { PropertyActions } from "@/app/dashboard/properties/property-actions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -64,44 +65,7 @@ export default async function PropertiesPage() {
                   <CardTitle>{property.name}</CardTitle>
                   <p className="mt-1 text-sm text-muted-foreground">{property.address}</p>
                 </div>
-                <details className="relative">
-                  <summary className="flex h-9 w-9 cursor-pointer list-none items-center justify-center rounded-md border bg-white text-muted-foreground hover:bg-muted [&::-webkit-details-marker]:hidden">
-                    <MoreVertical className="h-4 w-4" />
-                    <span className="sr-only">Property actions</span>
-                  </summary>
-                  <div className="absolute right-0 z-10 mt-2 w-80 rounded-md border bg-white p-3 shadow-lg">
-                    <form action={updateProperty} className="space-y-3">
-                      <input type="hidden" name="property_id" value={property.id} />
-                      <Input name="name" defaultValue={property.name} placeholder="Property name" required />
-                      <Input name="address" defaultValue={property.address} placeholder="Address" required />
-                      <Textarea
-                        name="access_notes"
-                        defaultValue={property.access_notes || ""}
-                        placeholder="Optional contractor access instructions"
-                      />
-                      <Textarea
-                        name="parking_notes"
-                        defaultValue={property.parking_notes || ""}
-                        placeholder="Optional contractor parking instructions"
-                      />
-                      <Button variant="secondary" size="sm" className="w-full">
-                        <Save className="h-4 w-4" />
-                        Save changes
-                      </Button>
-                    </form>
-                    <form action={deleteProperty} className="mt-3 border-t pt-3">
-                      <input type="hidden" name="property_id" value={property.id} />
-                      <label className="flex items-start gap-2 text-xs text-muted-foreground">
-                        <input type="checkbox" name="confirm_delete" className="mt-0.5" />
-                        <span>Confirm delete. This removes related tickets and is intended for test cleanup.</span>
-                      </label>
-                      <Button variant="destructive" size="sm" className="mt-3 w-full">
-                        <Trash2 className="h-4 w-4" />
-                        Delete property
-                      </Button>
-                    </form>
-                  </div>
-                </details>
+                <PropertyActions property={property} />
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
