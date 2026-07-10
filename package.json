@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:qa": "rm -rf .next-qa && NEXT_DIST_DIR=.next-qa next build",
     "lint": "eslint .",
-    "qa": "npm run lint && npm run build",
-    "qa:smoke": "npm run build"
+    "qa": "npm run lint && npm run build:qa",
+    "qa:smoke": "npm run build:qa"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",

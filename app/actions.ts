@@ -113,6 +113,45 @@ export async function addProperty(formData: FormData) {
   revalidatePath("/dashboard");
 }
 
+export async function updateProperty(formData: FormData) {
+  const landlord = await currentLandlord();
+  const supabase = createSupabaseAdminClient();
+  const propertyId = String(formData.get("property_id") || "");
+
+  const { error } = await supabase
+    .from("properties")
+    .update({
+      name: String(formData.get("name") || ""),
+      address: String(formData.get("address") || ""),
+      access_notes: String(formData.get("access_notes") || "") || null,
+      parking_notes: String(formData.get("parking_notes") || "") || null
+    })
+    .eq("id", propertyId)
+    .eq("landlord_id", landlord.id);
+
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/dashboard/properties");
+  revalidatePath("/dashboard");
+}
+
+export async function deleteProperty(formData: FormData) {
+  const landlord = await currentLandlord();
+  const supabase = createSupabaseAdminClient();
+  const propertyId = String(formData.get("property_id") || "");
+  const confirmed = formData.get("confirm_delete") === "on";
+
+  if (!confirmed) {
+    throw new Error("Confirm deletion before deleting a property.");
+  }
+
+  const { error } = await supabase.from("properties").delete().eq("id", propertyId).eq("landlord_id", landlord.id);
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/dashboard/properties");
+  revalidatePath("/dashboard");
+}
+
 export async function addContractor(formData: FormData) {
   const landlord = await currentLandlord();
   const supabase = createSupabaseAdminClient();
