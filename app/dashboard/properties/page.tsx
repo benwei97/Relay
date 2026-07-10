@@ -80,6 +80,31 @@ export default async function PropertiesPage() {
                     </Link>
                   </Button>
                 </div>
+                {(property.access_notes || property.parking_notes) ? (
+                  <div className="rounded-md border bg-white p-3">
+                    <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                      Contractor instructions
+                    </div>
+                    <div className="mt-2 grid max-w-full items-start gap-3 text-sm sm:grid-cols-2">
+                      <div className="min-h-20 min-w-0 max-w-full overflow-hidden rounded-md border bg-muted p-3">
+                        <div className="font-medium">Access</div>
+                        <p className="mt-2 max-w-full whitespace-pre-wrap break-all text-muted-foreground">
+                          {property.access_notes || "None provided"}
+                        </p>
+                      </div>
+                      <div className="min-h-20 min-w-0 max-w-full overflow-hidden rounded-md border bg-muted p-3">
+                        <div className="font-medium">Parking</div>
+                        <p className="mt-2 max-w-full whitespace-pre-wrap break-all text-muted-foreground">
+                          {property.parking_notes || "None provided"}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="rounded-md border border-dashed bg-white p-3 text-sm text-muted-foreground">
+                    No contractor access or parking instructions added.
+                  </div>
+                )}
               </CardContent>
             </Card>
           );
