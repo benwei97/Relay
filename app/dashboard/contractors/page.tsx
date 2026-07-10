@@ -41,7 +41,15 @@ export default async function ContractorsPage() {
             <Input name="company_name" placeholder="Company name" />
             <Input name="phone" placeholder="Phone for SMS" required />
             <Input name="email" type="email" placeholder="Email optional" />
-            <Input name="priority" type="number" min="1" defaultValue="1" placeholder="Priority" />
+            <div className="space-y-1">
+              <label className="text-sm font-medium" htmlFor="priority">
+                Priority
+              </label>
+              <Input id="priority" name="priority" type="number" min="1" defaultValue="1" placeholder="Priority" />
+              <p className="text-xs text-muted-foreground">
+                Lower numbers are contacted first when multiple contractors match the same trade.
+              </p>
+            </div>
             <div className="grid grid-cols-2 gap-2 text-sm">
               {trades.map((trade) => (
                 <label key={trade} className="flex items-center gap-2 rounded-md border bg-white px-3 py-2">
@@ -50,10 +58,13 @@ export default async function ContractorsPage() {
                 </label>
               ))}
             </div>
-            <label className="flex items-center gap-2 text-sm">
+            <label className="flex items-center gap-2 text-sm font-medium">
               <input type="checkbox" name="active" defaultChecked />
-              Active
+              Active for new jobs
             </label>
+            <p className="-mt-2 text-xs text-muted-foreground">
+              Inactive contractors stay saved but are not recommended for dispatch.
+            </p>
             <Button className="w-full">Add contractor</Button>
           </form>
         </CardContent>
