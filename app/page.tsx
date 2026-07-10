@@ -7,12 +7,12 @@ export default function HomePage() {
     <main className="min-h-screen bg-background">
       <section className="mx-auto flex min-h-screen max-w-5xl flex-col justify-center px-6 py-12">
         <div className="max-w-3xl">
-          <p className="mb-3 text-sm font-medium uppercase tracking-wide text-primary">Relay Maintenance</p>
+          <p className="mb-3 text-sm font-medium uppercase tracking-wide text-primary">Relay Maintenance Dispatcher</p>
           <h1 className="text-4xl font-semibold tracking-tight text-foreground sm:text-6xl">
-            AI maintenance coordination for rental operators.
+            Stop being the maintenance middleman.
           </h1>
           <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
-            Intake tenant issues, summarize them with AI, assign contractors, and track job actions from one simple workflow.
+            Tenants submit repair requests, Relay summarizes the issue with AI, landlords approve dispatch, and contractors schedule through public job links.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild>

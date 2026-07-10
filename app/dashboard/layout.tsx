@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Building2, LogOut, UsersRound } from "lucide-react";
+import { Building2, Home, LogOut, UsersRound } from "lucide-react";
 import { signOut } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 
@@ -16,6 +16,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <Link href="/dashboard">
                 <Building2 className="h-4 w-4" />
                 Tickets
+              </Link>
+            </Button>
+            <Button asChild variant="ghost" size="sm">
+              <Link href="/dashboard/properties">
+                <Home className="h-4 w-4" />
+                Properties
               </Link>
             </Button>
             <Button asChild variant="ghost" size="sm">
