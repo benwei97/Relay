@@ -116,10 +116,6 @@ export default async function PropertiesPage() {
                     </Link>
                   </Button>
                 </div>
-                <p className="text-sm text-muted-foreground">
-                  Suggested tenant message: Please submit maintenance requests here so repairs are routed and tracked: {requestUrl}
-                </p>
-                <div className="text-sm text-muted-foreground">Units are captured automatically when tenants submit requests.</div>
               </CardContent>
             </Card>
           );
