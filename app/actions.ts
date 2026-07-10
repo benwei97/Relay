@@ -88,20 +88,13 @@ function slugify(value: string) {
   return `${base || "property"}-${randomUUID().slice(0, 8)}`;
 }
 
-function splitLines(value: FormDataEntryValue | null) {
-  return String(value || "")
-    .split(/\r?\n|,/)
-    .map((item) => item.trim())
-    .filter(Boolean);
-}
-
 export async function addProperty(formData: FormData) {
   const landlord = await currentLandlord();
   const supabase = createSupabaseAdminClient();
   const name = String(formData.get("name") || "");
   const address = String(formData.get("address") || "");
 
-  const { data: property, error } = await supabase
+  const { error } = await supabase
     .from("properties")
     .insert({
       landlord_id: landlord.id,
@@ -115,11 +108,6 @@ export async function addProperty(formData: FormData) {
     .single();
 
   if (error) throw new Error(error.message);
-
-  const units = splitLines(formData.get("units"));
-  if (units.length) {
-    await supabase.from("units").insert(units.map((unit_number) => ({ property_id: property.id, unit_number })));
-  }
 
   revalidatePath("/dashboard/properties");
   revalidatePath("/dashboard");

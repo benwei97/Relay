@@ -40,9 +40,16 @@ export default async function PropertiesPage() {
           <form action={addProperty} className="space-y-4">
             <Input name="name" placeholder="Property name" required />
             <Input name="address" placeholder="Address" required />
-            <Textarea name="units" placeholder="Units, one per line or comma-separated" />
-            <Textarea name="access_notes" placeholder="Access notes, gate code, entry instructions" />
-            <Textarea name="parking_notes" placeholder="Parking notes" />
+            <div className="space-y-2 rounded-md border bg-muted p-3">
+              <div>
+                <h3 className="text-sm font-medium">Optional contractor instructions</h3>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  These appear in contractor job packets so you do not have to repeat access or parking details.
+                </p>
+              </div>
+              <Textarea name="access_notes" placeholder="Access instructions for contractors, e.g. gate code, lockbox, side entrance" />
+              <Textarea name="parking_notes" placeholder="Parking instructions for contractors, e.g. driveway, street parking, loading zone" />
+            </div>
             <Button className="w-full">Create request link</Button>
           </form>
         </CardContent>
@@ -72,8 +79,8 @@ export default async function PropertiesPage() {
                 <p className="text-sm text-muted-foreground">
                   Suggested tenant message: Please submit maintenance requests here so repairs are routed and tracked: {requestUrl}
                 </p>
-                <div className="text-sm">
-                  Units: {(property.units ?? []).map((unit: { unit_number: string }) => unit.unit_number).join(", ") || "None yet"}
+                <div className="text-sm text-muted-foreground">
+                  Units are captured automatically when tenants submit requests.
                 </div>
               </CardContent>
             </Card>

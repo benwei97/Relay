@@ -23,7 +23,7 @@ Relay helps small landlords stop acting as the manual middleman between tenants 
 - File uploads for maintenance tickets
 - AI-generated title, urgency, trade, summaries, missing info, recommended contractor, confidence, and next step
 - Landlord login and dashboard
-- Property/unit onboarding
+- Low-friction property onboarding
 - Ticket detail view with tenant info, photos, AI triage, dispatch controls, scheduling, status, and activity timeline
 - Contractor management
 - Landlord-approved contractor dispatch
