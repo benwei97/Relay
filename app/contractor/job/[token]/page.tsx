@@ -13,7 +13,7 @@ export default async function ContractorJobPage({ params }: { params: Promise<{ 
   const supabase = createSupabaseAdminClient();
   const { data: ticket } = await supabase
     .from("maintenance_tickets")
-    .select("*, properties(name,address,access_notes,parking_notes), contractors(name)")
+    .select("*, properties(name,address,access_notes,parking_notes), assigned_contractor:contractors!maintenance_tickets_assigned_contractor_id_fkey(name)")
     .eq("contractor_token", token)
     .single();
 

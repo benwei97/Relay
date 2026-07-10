@@ -12,7 +12,7 @@ export default async function TenantStatusPage({ params }: { params: Promise<{ t
   const supabase = createSupabaseAdminClient();
   const { data: ticket } = await supabase
     .from("maintenance_tickets")
-    .select("*, properties(name,address), contractors(name)")
+    .select("*, properties(name,address), assigned_contractor:contractors!maintenance_tickets_assigned_contractor_id_fkey(name)")
     .eq("tenant_token", token)
     .single();
 

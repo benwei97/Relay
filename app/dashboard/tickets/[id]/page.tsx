@@ -24,7 +24,12 @@ export default async function TicketDetailPage({ params }: { params: Promise<{ i
     .single();
 
   const [{ data: ticket }, { data: files }, { data: events }, { data: contractors }, { data: proposals }] = await Promise.all([
-    supabase.from("maintenance_tickets").select("*, properties(name,address,access_notes,parking_notes), contractors(name)").eq("id", id).eq("landlord_id", landlord?.id ?? "").single(),
+    supabase
+      .from("maintenance_tickets")
+      .select("*, properties(name,address,access_notes,parking_notes), assigned_contractor:contractors!maintenance_tickets_assigned_contractor_id_fkey(name)")
+      .eq("id", id)
+      .eq("landlord_id", landlord?.id ?? "")
+      .single(),
     supabase.from("ticket_files").select("*").eq("ticket_id", id).order("created_at", { ascending: true }),
     supabase.from("ticket_events").select("*").eq("ticket_id", id).order("created_at", { ascending: true }),
     supabase.from("contractors").select("*").eq("landlord_id", landlord?.id ?? "").eq("active", true).order("priority", { ascending: true }),

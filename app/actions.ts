@@ -375,7 +375,7 @@ export async function contractorAction(formData: FormData) {
 
   const { data: ticket, error } = await supabase
     .from("maintenance_tickets")
-    .select("*, contractors(name), properties(address)")
+    .select("*, assigned_contractor:contractors!maintenance_tickets_assigned_contractor_id_fkey(name), properties(address)")
     .eq("contractor_token", token)
     .single();
   if (error) throw new Error(error.message);
@@ -407,7 +407,7 @@ export async function contractorAction(formData: FormData) {
     });
     await supabase.from("maintenance_tickets").update({ status: status.scheduling }).eq("id", ticket.id);
     await addEvent({ ticketId: ticket.id, type: "time_proposed", message: `Contractor proposed ${new Date(startAt).toLocaleString()} - ${new Date(endAt).toLocaleString()}`, actorType: "contractor", actorId: ticket.assigned_contractor_id });
-    await sendSms({ to: ticket.tenant_phone, body: `${ticket.contractors?.name || "Your contractor"} proposed a visit time. Confirm here: ${appUrl()}/status/${ticket.tenant_token}` });
+    await sendSms({ to: ticket.tenant_phone, body: `${ticket.assigned_contractor?.name || "Your contractor"} proposed a visit time. Confirm here: ${appUrl()}/status/${ticket.tenant_token}` });
   }
 
   if (action === "complete") {

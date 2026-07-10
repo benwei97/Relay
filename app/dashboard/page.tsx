@@ -23,7 +23,7 @@ export default async function DashboardPage() {
 
   const { data: tickets } = await supabase
     .from("maintenance_tickets")
-    .select("*, properties(name,address), contractors(name)")
+    .select("*, properties(name,address), assigned_contractor:contractors!maintenance_tickets_assigned_contractor_id_fkey(name)")
     .eq("landlord_id", landlord?.id ?? "")
     .order("updated_at", { ascending: false });
 
@@ -60,7 +60,7 @@ export default async function DashboardPage() {
                     </div>
                     <div className="mt-2 flex flex-wrap gap-2 text-xs">
                       <span className="rounded bg-muted px-2 py-1">{ticket.ai_urgency || "Routine"}</span>
-                      <span className="rounded bg-muted px-2 py-1">{ticket.contractors?.name || "Unassigned"}</span>
+                      <span className="rounded bg-muted px-2 py-1">{ticket.assigned_contractor?.name || "Unassigned"}</span>
                     </div>
                     <div className="mt-2 text-xs text-muted-foreground">{new Date(ticket.updated_at).toLocaleString()}</div>
                   </Link>
